@@ -1,74 +1,43 @@
-# 모두의 OX (Modu OX)
+# 모두의 OX
 
-실시간 멀티플레이어 웹 기반 OX 퀴즈 게임입니다.
+실시간 멀티플레이어 OX 퀴즈 파티 게임. 별도 서버 없이 Supabase(Free plan)만으로 동작하며, 사내망 제약 때문에 호스트 PC에서 직접 구동해 같은 네트워크의 참여자가 접속하는 구조입니다.
 
-## 기술 스택
+## 1. 기술 스택
 
-- **Frontend**: React 18 + TypeScript + Vite
-- **Styling**: Tailwind CSS
-- **Database & Realtime**: Supabase
-- **State Management**: TanStack Query + React Context
-- **Routing**: React Router v6
+- Vite + React 19 + TypeScript + Tailwind CSS v4
+- Zustand(실시간 상태) + TanStack Query(일회성 조회)
+- React Router v6
+- Supabase(`@supabase/supabase-js`) — REST + Realtime(Broadcast/Presence/Postgres Changes) + Anonymous Auth
+- Framer Motion, qrcode.react
 
-## 주요 기능
+## 2. 로컬 실행
 
-- 실시간 멀티플레이어 게임 (WebSocket 기반)
-- 게임 방 생성 및 참여
-- 실시간 점수 동기화
-- 호스트 게임 관리
-
-## 설치 및 실행
-
-### 사전 요구사항
-- Node.js 18+ 
-- npm
-
-### 1. 의존성 설치
 ```bash
 npm install
+npm run dev -- --host
 ```
 
-### 2. 환경 변수 설정
-`.env.local` 파일을 생성하고 Supabase 정보를 입력하세요:
+`http://localhost:5173/diag` 에서 REST/Realtime/Broadcast 연결성을 먼저 확인하세요.
 
-```env
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_ANON_KEY=your-anon-key
-```
+## 3. Supabase 설정
 
-### 3. 개발 서버 실행
-```bash
-npm run dev
-```
+1. supabase.com에서 새 프로젝트 생성 (Free plan)
+2. Authentication → Providers → Anonymous Sign-ins 활성화
+3. SQL Editor에서 `supabase/migrations/`의 4개 파일을 순서대로 실행
+4. Settings → API에서 URL/anon key 복사 → `.env` 생성
 
-브라우저에서 `http://localhost:5173` 에 접속하면 됩니다.
+## 4. 사내 접속 가이드
 
-### 4. 프로덕션 빌드
-```bash
-npm run build
-```
+`npm run dev -- --host`로 구동하면 콘솔에 LAN IP가 출력됩니다. 홈 화면 QR코드로 참여자가 접속합니다. 외부 호스팅(Vercel 등)은 사용하지 않습니다.
 
-## 프로젝트 구조
+## 5. 실시간 채널 설계
 
-```
-src/
-├── pages/           # 페이지 컴포넌트 (Home, CreateGame, JoinGame, Game)
-├── components/      # 재사용 가능한 UI 컴포넌트
-├── hooks/          # 커스텀 React 훅 (useGameRoom)
-├── lib/            # 유틸리티 및 Supabase 클라이언트
-├── types/          # TypeScript 타입 정의
-├── App.tsx         # 라우팅 설정
-├── main.tsx        # 엔트리 포인트
-└── index.css       # 글로벌 스타일
-```
+채널명 `room:{6자리코드}` 하나를 Broadcast(좌표)/Presence(접속자)/Postgres Changes(상태전이)로 분리 사용.
 
-## 개발 규칙
+## 6. 캐릭터 구성
 
-- `@/*` 경로 별칭을 사용하여 import
-- TypeScript strict mode 사용
-- Tailwind CSS 유틸리티 클래스 우선
-- 실시간 동기화는 `useGameRoom` 훅 사용
+12종 × 색상 6종 = 72콤보를 12개 SVG 컴포넌트 + 6행 팔레트 테이블로 구성(72개 파일이 아님).
 
-## 라이선스
+## 7. 테스트 체크리스트
 
-MIT
+`/diag` 통과 후 방 생성→캐릭터 선택→로비→게임→결과까지 실제 멀티 클라이언트로 확인하세요.
