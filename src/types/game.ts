@@ -14,8 +14,8 @@ export interface RevealResult {
 export interface RankingEntry {
   playerId: string;
   nickname: string;
-  characterId: string | null;
-  colorId: string | null;
+  characterId: number | null;
+  colorId: number | null;
   correctCount: number;
   rank: number;
 }
