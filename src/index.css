@@ -44,3 +44,42 @@
     scroll-behavior: auto !important;
   }
 }
+
+@layer utilities {
+  @keyframes char-idle-bob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-3%) rotate(-2deg); }
+  }
+
+  @keyframes char-walk-bob {
+    0%, 100% { transform: translateY(0) scaleX(1); }
+    50% { transform: translateY(-6%) scaleX(1.04); }
+  }
+
+  @keyframes char-cheer-bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    30% { transform: translateY(-18%) scale(1.12); }
+    60% { transform: translateY(0) scale(0.96); }
+  }
+
+  @keyframes char-eliminated-fall {
+    0% { transform: rotate(0deg) translateY(0); opacity: 1; filter: saturate(1); }
+    100% { transform: rotate(90deg) translateY(10%); opacity: 0.35; filter: saturate(0); }
+  }
+
+  .char-idle {
+    animation: char-idle-bob 2.4s var(--ease-out-expo) infinite;
+  }
+
+  .char-walk {
+    animation: char-walk-bob 0.5s ease-in-out infinite;
+  }
+
+  .char-cheer {
+    animation: char-cheer-bounce 0.7s var(--ease-out-expo) 2;
+  }
+
+  .char-eliminated {
+    animation: char-eliminated-fall 0.6s ease-in forwards;
+  }
+}
