@@ -7,8 +7,18 @@ import Home from "@/pages/Home";
 import Join from "@/pages/Join";
 import Lobby from "@/pages/Lobby";
 import Results from "@/pages/Results";
+import { useEnsureSession } from "@/hooks/useEnsureSession";
 
 export default function App() {
+  const sessionReady = useEnsureSession();
+
+  // /diag must render even before a session exists — it's the first thing
+  // checked when verifying the app works at all on a restrictive network.
+  const path = window.location.pathname;
+  if (!sessionReady && path !== "/diag") {
+    return null;
+  }
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
