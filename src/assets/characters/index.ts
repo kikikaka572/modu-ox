@@ -1,0 +1,12 @@
+export { Cat } from "./Cat";
+export { Dog } from "./Dog";
+export { Rabbit } from "./Rabbit";
+export { Bear } from "./Bear";
+export { Penguin } from "./Penguin";
+export { Fox } from "./Fox";
+export { Panda } from "./Panda";
+export { Frog } from "./Frog";
+export { Duck } from "./Duck";
+export { Hamster } from "./Hamster";
+export { Koala } from "./Koala";
+export { Owl } from "./Owl";
