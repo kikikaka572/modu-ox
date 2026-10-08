@@ -1,4 +1,3 @@
-import type { CharacterId, ColorId } from "./player";
 import type { RoomStatus } from "./room";
 
 export interface CursorMovePayload {
@@ -11,8 +10,8 @@ export interface CursorMovePayload {
 export interface PresencePayload {
   player_id: string;
   nickname: string;
-  character_id: CharacterId | null;
-  color_id: ColorId | null;
+  character_id: number | null;
+  color_id: number | null;
   is_host: boolean;
 }
 
