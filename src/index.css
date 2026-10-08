@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Pretendard", "Gowun Dodum", system-ui, -apple-system, "Malgun Gothic", sans-serif;
+
+  --color-o-zone: oklch(58% 0.19 255);
+  --color-o-zone-strong: oklch(48% 0.2 255);
+  --color-x-zone: oklch(58% 0.22 25);
+  --color-x-zone-strong: oklch(48% 0.22 25);
+  --color-neutral-zone: oklch(22% 0.01 255);
+
+  --color-ink: oklch(16% 0.01 255);
+  --color-paper: oklch(98% 0.005 255);
+
+  --duration-fast: 120ms;
+  --duration-normal: 240ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-display);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
